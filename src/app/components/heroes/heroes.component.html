@@ -1,0 +1,51 @@
+<h1>Heroes</h1>
+<hr>
+
+<div class="row animated fadeIn">
+  <div class="col-md-12 text-right">
+    <button [routerLink]="['/heroe', 'nuevo']" class="btn btn-primary" type="button" name="button">
+      <i class="fas fa-plus"></i> Nuevo
+    </button>
+  </div>
+</div>
+
+<div class="row mt-5 animated fadeIn">
+  <div class="col-md-12">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Casa</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let k of heroes | keys; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ heroes[k].nombre }}</td>
+          <td>
+            <img class="img-fluid" *ngIf="heroes[k].casa == 'Marvel'" src="assets/img/marvel.png" [alt]="heroes[k].nombre">
+            <img class="img-fluid" *ngIf="heroes[k].casa == 'DC'" src="assets/img/dc.png" [alt]="heroes[k].nombre">
+          </td>
+          <td>
+            <button [routerLink]="['/heroe', k]" type="button" name="button" class="btn btn-warning btn-sm mr-3">
+              <i class="fas fa-pen"></i> Editar
+            </button>
+            <button (click)="borrarHeroe(k)" type="button" name="button" class="btn btn-danger btn-sm">
+              <i class="fas fa-times"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="(heroes | keys).length === 0 && !loading" class="alert alert-info" role="alert">
+      <strong>No hay registros que mostrar</strong>
+    </div>
+
+    <div *ngIf="loading" class="alert alert-success" role="alert">
+      <i class="fas fa-sync-alt fa-spin"></i><strong> Cargando..</strong> por favor espere
+    </div>
+  </div>
+</div>

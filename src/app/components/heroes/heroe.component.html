@@ -1,0 +1,41 @@
+<h3>Héroe <small>{{ heroe.nombre }}</small></h3>
+<hr>
+
+<button [routerLink]="['/heroes']" class="btn btn-danger mr-3">
+  <i class="fas fa-chevron-left"></i> Regresar
+</button>
+
+<button (click)="agregarNuevo(forma)" type="button" [routerLink]="['/heroes']" class="btn btn-primary">
+  <i class="fas fa-plus"></i> Nuevo Heroe
+</button>
+
+<div class="row mt-5">
+  <div class="col-md-12" [ngClass]="{'none': loading == true}">
+    <form (ngSubmit)="guardar()" #forma="ngForm">
+      <div class="form-group">
+        <label class="font-weight-bold">Nombre</label>
+        <input [(ngModel)]="heroe.nombre" type="text" name="nombre" class="form-control" placeholder="Nombre del héroe"
+          required>
+      </div>
+      <div class="form-group">
+        <label class="font-weight-bold">Casa</label>
+        <select [(ngModel)]="heroe.casa" name="casa" class="form-control">
+          <option value="Marvel">Marvel</option>
+          <option value="DC">DC</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="font-weight-bold">Bio</label>
+        <textarea [(ngModel)]="heroe.bio" type="text" name="bio" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <button [disabled]="!forma.valid" class="btn btn-success" name="button" type="submit"><i class="fas fa-cloud"></i>
+          Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="loading" class="alert alert-success" role="alert">
+  <i class="fas fa-sync-alt fa-spin"></i><strong> Guardando..</strong> por favor espere
+</div>
